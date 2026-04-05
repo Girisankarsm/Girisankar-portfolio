@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Girisankar S.M. | AI Software Engineer</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Icons -->
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+  <!-- Typography -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap"
+    rel="stylesheet">
+
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          },
+          colors: {
+            dark: {
+              DEFAULT: '#09090b', // Zinc 950
+              card: '#18181b', // Zinc 900
+              border: 'rgba(255, 255, 255, 0.08)',
+            },
+            primary: '#38bdf8', // Sky 400
+            secondary: '#818cf8', // Indigo 400
+            accent: '#c084fc', // Purple 400
+          },
+          animation: {
+            'glow-spin': 'spin 10s linear infinite',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #09090b;
+      color: #e4e4e7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Advanced Layered Background */
+    .bg-grid {
+      background-size: 40px 40px;
+      background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+      -webkit-mask-image: radial-gradient(circle at center, black 40%, transparent 80%);
+    }
+
+    #tsparticles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      opacity: 0.6;
+    }
+
+    /* Spotlights */
+    .spotlight {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: -3;
+      pointer-events: none;
+    }
+
+    .spot-1 {
+      top: -20%;
+      left: 0;
+      width: 50vw;
+      height: 50vw;
+      background: rgba(56, 189, 248, 0.15);
+    }
+
+    .spot-2 {
+      bottom: -20%;
+      right: 0;
+      width: 50vw;
+      height: 50vw;
+      background: rgba(192, 132, 252, 0.15);
+    }
+
+    /* Ultra-Premium Glass Cards */
+    .premium-card {
+      background: rgba(24, 24, 27, 0.6);
+      /* Zinc 900 variant */
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--dark-border);
+      border-radius: 1.5rem;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .premium-card:hover {
+      background: rgba(24, 24, 27, 0.8);
+      border-color: rgba(255, 255, 255, 0.2);
+      transform: translateY(-4px);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    /* Gradients */
+    .text-gradient {
+      background: linear-gradient(135deg, #38bdf8, #c084fc);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* 3D Flip Card Utilities */
+    .perspective {
+      perspective: 1000px;
+    }
+
+    .preserve-3d {
+      transform-style: preserve-3d;
+    }
+
+    .backface-hidden {
+      backface-visibility: hidden;
+    }
+
+    .rotate-y-180 {
+      transform: rotateY(180deg);
+    }
+
+    /* Subdued Text */
+    .text-muted {
+      color: #a1a1aa;
+    }
+
+    /* Zinc 400 */
+
+    /* Scrollbar */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #3f3f46;
+      border-radius: 3px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #52525b;
+    }
+
+    /* Nav Glass */
+    .nav-glass {
+      background: rgba(9, 9, 11, 0.7);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+
+    /* Code block styling for tech vibe */
+    .code-badge {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: -0.02em;
+    }
+  </style>
+</head>
+
+<body class="selection:bg-primary/30 selection:text-white">
+
+  <!-- Environment Background Layers -->
+  <div class="fixed inset-0 z-[-3] bg-dark"></div>
+  <div class="fixed inset-0 z-[-2] bg-grid pointer-events-none"></div>
+  <div id="tsparticles"></div>
+  <div class="spotlight spot-1 fixed"></div>
+  <div class="spotlight spot-2 fixed"></div>
+
+  <!-- Navbar -->
+  <nav class="fixed top-0 w-full nav-glass z-50 transition-all">
+    <div class="max-w-6xl mx-auto px-6 h-20 flex justify-between items-center">
+      <h1 class="text-xl font-bold tracking-tight cursor-pointer" data-aos="fade-down">
+        Girisankar<span class="text-primary">.</span>dev
+      </h1>
+      <div class="hidden md:flex gap-8 text-sm font-medium text-zinc-400">
+        <a href="#about" class="hover:text-white transition-colors" data-aos="fade-down" data-aos-delay="100">About</a>
+        <a href="#skills" class="hover:text-white transition-colors" data-aos="fade-down" data-aos-delay="200">Stack</a>
+        <a href="#experience" class="hover:text-white transition-colors" data-aos="fade-down"
+          data-aos-delay="300">Journey</a>
+        <a href="#projects" class="hover:text-white transition-colors" data-aos="fade-down"
+          data-aos-delay="400">Projects</a>
+      </div>
+      <a href="mailto:gxr02005@gmail.com"
+        class="hidden md:block px-5 py-2 rounded-full border border-white/10 hover:border-primary hover:bg-primary/10 text-sm font-medium transition-colors"
+        data-aos="fade-down" data-aos-delay="500">
+        Let's Talk
+      </a>
+      <div class="md:hidden text-2xl"><i class='bx bx-menu'></i></div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="min-h-screen flex flex-col justify-center items-center text-center px-6 relative py-32">
+
+    <!-- Status Badge -->
+    <div
+      class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-white/10 bg-white/5 backdrop-blur-md mb-8"
+      data-aos="fade-up">
+      <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+      <span class="text-xs font-semibold uppercase tracking-widest text-zinc-300">Available for Opportunities</span>
+    </div>
+
+    <!-- Main Heading -->
+    <h1 class="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter mb-6 leading-[1.1]" data-aos="fade-up"
+      data-aos-delay="100">
+      Engineering <br>
+      <span class="text-gradient">Intelligent Systems.</span>
+    </h1>
+
+    <!-- Subtitle -->
+    <p class="text-lg md:text-xl text-zinc-400 max-w-2xl font-medium leading-relaxed mb-12" data-aos="fade-up"
+      data-aos-delay="200">
+      I'm Girisankar S.M. — I build AI that ships. From training models to deploying them in fast, production-ready web
+      systems.
+    </p>
+
+    <!-- Actions -->
+    <div class="flex flex-col sm:flex-row gap-4 w-full sm:w-auto" data-aos="fade-up" data-aos-delay="300">
+      <a href="#projects"
+        class="bg-white text-dark px-6 py-2.5 rounded-full font-bold text-sm tracking-wide hover:bg-zinc-200 hover:scale-105 transition-all w-full sm:w-auto">
+        View Projects
+      </a>
+      <a href="Girisankar-Resume-main.pdf" download
+        class="px-6 py-2.5 rounded-full border border-white/20 bg-white/5 font-bold text-sm tracking-wide hover:bg-white/10 hover:border-white/40 hover:scale-105 transition-all w-full sm:w-auto flex justify-center items-center gap-2">
+        <i class='bx bx-cloud-download text-base'></i> Download Resume
+      </a>
+    </div>
+
+    <!-- Tech Stack Ticker -->
+    <div class="absolute bottom-12 w-full max-w-4xl opacity-50 flex flex-wrap justify-center gap-6 text-sm font-medium"
+      data-aos="fade-up" data-aos-delay="500">
+      <span class="flex items-center gap-2"><i class='bx bxl-python text-lg'></i> Python</span>
+      <span class="flex items-center gap-2"><i class='bx bxl-javascript text-lg'></i> JS / TypeScript</span>
+      <span class="flex items-center gap-2"><i class='bx bxl-react text-lg'></i> React / Next.js</span>
+      <span class="flex items-center gap-2"><i class='bx bx-brain text-lg'></i> Machine Learning</span>
+      <span class="flex items-center gap-2"><i class='bx bx-server text-lg'></i> Cloud Architecture</span>
+    </div>
+  </section>
+
+  <!-- Wrapping Content in a Structured Container -->
+  <main class="max-w-6xl mx-auto px-6 space-y-40 pb-40 relative z-10 w-full">
+
+    <!-- About Section -->
+    <section id="about" class="pt-10 scroll-mt-20">
+      <div class="flex flex-col md:flex-row gap-12 items-start">
+
+        <!-- Headers & Core Text -->
+        <div class="flex-1 space-y-8" data-aos="fade-right">
+          <h2 class="text-3xl md:text-5xl font-bold tracking-tight">Systematic logic meets <span
+              class="text-primary text-opacity-80">artificial intelligence.</span></h2>
+
+          <div class="space-y-6 text-zinc-400 text-lg leading-relaxed">
+            <p>
+              I am a <strong class="text-zinc-200">3rd-year B.Tech Computer Engineering student</strong> at SRM
+              Institute of Science and Technology. My engineering philosophy is built on a solid foundation of
+              algorithmic problem-solving and scalable software architecture.
+            </p>
+            <p>
+              Right now, my research and development heavily centers around <strong class="text-zinc-200">Machine
+                Learning, Deep Learning, Neural Networks, and Web Ecosystems.</strong> I don't just train models—I build
+              the full-stack infrastructure required to serve them to real users.
+            </p>
+            <p class="pl-4 border-l-2 border-primary/50 text-zinc-300 italic">
+              Actively seeking internships and entry-level opportunities to apply my skills, solve real-world
+              architectural challenges, and scale as a software engineer.
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-4 pt-2">
+            <a href="https://www.linkedin.com/in/girisankar-s-m/" target="_blank"
+              class="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-800/80 border border-zinc-700 hover:border-blue-500/50 hover:bg-blue-500/10 transition-all group">
+              <i class='bx bxl-linkedin text-2xl text-blue-400 group-hover:scale-110 transition-transform'></i>
+            </a>
+            <a href="https://github.com/Girisankarsm" target="_blank"
+              class="w-12 h-12 flex items-center justify-center rounded-full bg-zinc-800/80 border border-zinc-700 hover:border-zinc-400 hover:bg-zinc-700/50 transition-all group">
+              <i class='bx bxl-github text-2xl text-zinc-300 group-hover:scale-110 transition-transform'></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- Certifications & Profile -->
+        <div class="w-full md:w-[400px] flex flex-col gap-6" data-aos="fade-left">
+
+          <!-- Image -->
+          <div
+            class="premium-card p-2 w-full flex justify-center items-center aspect-square md:aspect-[4/5] max-h-[400px] relative overflow-hidden group">
+            <img src="girisankar.jpg" alt="Profile"
+              class="w-full h-full object-cover rounded-xl filter grayscale group-hover:grayscale-0 transition-all duration-700">
+          </div>
+
+          <!-- Certifications Box -->
+          <div class="premium-card p-6 border-t-4 border-t-primary">
+            <h3 class="text-sm font-bold uppercase tracking-widest text-zinc-500 mb-6 flex items-center gap-2">
+              <i class='bx bxs-badge-check text-lg'></i> Verified Credentials
+            </h3>
+
+            <div class="space-y-5">
+              <a href="https://www.credly.com/badges/50c9dbf5-762e-43f4-9989-a5d79714921b/linked_in_profile"
+                target="_blank" class="flex gap-4 items-center group cursor-pointer decoration-transparent">
+                <div
+                  class="w-12 h-12 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center shrink-0 group-hover:border-yellow-500/50 transition-colors">
+                  <i class='bx bxl-aws text-2xl text-yellow-500'></i>
+                </div>
+                <div>
+                  <h4
+                    class="text-zinc-200 font-semibold text-sm leading-tight mb-1 group-hover:text-white transition-colors">
+                    AWS AI Practitioner</h4>
+                  <p class="text-xs text-zinc-500 uppercase tracking-wider font-mono">amazon web services</p>
+                </div>
+              </a>
+
+              <a href="https://learn.microsoft.com/en-us/users/girisankarsm-9466/credentials/587584ef9adeda17?ref=https%3A%2F%2Fwww.linkedin.com%2F"
+                target="_blank" class="flex gap-4 items-center group cursor-pointer decoration-transparent">
+                <div
+                  class="w-12 h-12 rounded-lg bg-zinc-800 border border-zinc-700 flex items-center justify-center shrink-0 group-hover:border-blue-500/50 transition-colors">
+                  <i class='bx bxl-microsoft text-2xl text-blue-400'></i>
+                </div>
+                <div>
+                  <h4
+                    class="text-zinc-200 font-semibold text-sm leading-tight mb-1 group-hover:text-white transition-colors">
+                    Azure AI Engineer Assoc.</h4>
+                  <p class="text-xs text-zinc-500 uppercase tracking-wider font-mono">microsoft certified</p>
+                </div>
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- Core Stack Grid -->
+    <section id="skills" class="scroll-mt-20">
+      <div class="mb-12" data-aos="fade-up">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Engineering Stack</h2>
+        <p class="text-zinc-400 text-lg">The tools and languages I use to build robust software.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- 1. Languages -->
+        <div class="premium-card p-8 flex flex-col" data-aos="fade-up" data-aos-delay="0">
+          <div class="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+            <h3 class="text-xl font-bold text-zinc-100 items-center flex gap-3"><i
+                class='bx bx-code-block text-2xl text-zinc-400'></i> Languages</h3>
+          </div>
+          <ul class="space-y-4 text-sm flex-grow">
+            <li class="flex flex-col">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-zinc-200 font-medium text-base">Python</span>
+                <span class="code-badge text-primary bg-primary/10 px-2 py-0.5 rounded">Advanced</span>
+              </div>
+              <span class="text-zinc-500">Built ML + backend systems</span>
+            </li>
+            <li class="flex flex-col">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-zinc-200 font-medium text-base">C / C++</span>
+                <span class="code-badge text-zinc-300 bg-zinc-800 px-2 py-0.5 rounded">Intermediate</span>
+              </div>
+              <span class="text-zinc-500">DSA & problem solving</span>
+            </li>
+            <li class="flex flex-col">
+              <div class="flex justify-between items-center mb-1">
+                <span class="text-zinc-200 font-medium text-base">JavaScript</span>
+                <span class="code-badge text-zinc-300 bg-zinc-800 px-2 py-0.5 rounded">Intermediate</span>
+              </div>
+              <span class="text-zinc-500">Frontend + dom logic</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 2. AI / ML -->
+        <div class="premium-card relative group p-8 flex flex-col" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="absolute top-6 right-6 w-2 h-2 rounded-full bg-zinc-800 transition-all duration-500 group-hover:bg-primary group-hover:shadow-[0_0_12px_rgba(56,189,248,0.8)]">
+          </div>
+          <div class="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+            <h3 class="text-xl font-bold text-zinc-100 items-center flex gap-3"><i
+                class='bx bx-brain text-2xl text-accent'></i> Artificial Intel.</h3>
+          </div>
+          <ul class="space-y-4 text-sm flex-grow">
+            <li class="flex flex-col">
+              <span class="text-zinc-200 font-medium text-base mb-1">Natural Language Processing</span>
+              <span class="text-zinc-500">Chatbot interfaces (AI Lawyer project)</span>
+            </li>
+            <li class="flex flex-col">
+              <span class="text-zinc-200 font-medium text-base mb-1">Computer Vision</span>
+              <span class="text-zinc-500">OpenCV-based tracking and parsing</span>
+            </li>
+            <li class="flex flex-col">
+              <span class="text-zinc-200 font-medium text-base mb-1">Scikit-learn</span>
+              <span class="text-zinc-500">Classification & regression models</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 3. Web Dev -->
+        <div class="premium-card relative group p-8 flex flex-col" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="absolute top-6 right-6 w-2 h-2 rounded-full bg-zinc-800 transition-all duration-500 group-hover:bg-primary group-hover:shadow-[0_0_12px_rgba(56,189,248,0.8)]">
+          </div>
+          <div class="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+            <h3 class="text-xl font-bold text-zinc-100 items-center flex gap-3"><i
+                class='bx bx-code-alt text-2xl text-secondary'></i> Web Dev</h3>
+          </div>
+          <ul class="space-y-4 text-sm flex-grow">
+            <li class="flex flex-col">
+              <span class="text-zinc-200 font-medium text-base mb-1">Next.js / React</span>
+              <span class="text-zinc-500">Modern reactive frontend systems</span>
+            </li>
+            <li class="flex flex-col">
+              <span class="text-zinc-200 font-medium text-base mb-1">Flask</span>
+              <span class="text-zinc-500">Python based backend APIs deployments</span>
+            </li>
+            <li class="flex flex-col">
+              <span class="text-zinc-200 font-medium text-base mb-1">HTML / CSS / Tailwind</span>
+              <span class="text-zinc-500">Fluid, responsive UI design</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- 4. Core CS -->
+        <div class="premium-card relative group p-8 flex flex-col" data-aos="fade-up" data-aos-delay="300">
+          <div
+            class="absolute top-6 right-6 w-2 h-2 rounded-full bg-zinc-800 transition-all duration-500 group-hover:bg-primary group-hover:shadow-[0_0_12px_rgba(56,189,248,0.8)]">
+          </div>
+          <div class="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+            <h3 class="text-xl font-bold text-zinc-100 items-center flex gap-3"><i
+                class='bx bx-server text-2xl text-zinc-400'></i> Core CS</h3>
+          </div>
+          <div class="flex flex-wrap gap-2 pt-2">
+            <span
+              class="px-3 py-2 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-sm font-medium text-zinc-300">Data
+              Structures</span>
+            <span
+              class="px-3 py-2 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-sm font-medium text-zinc-300">Algorithms</span>
+            <span
+              class="px-3 py-2 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-sm font-medium text-zinc-300">Object-Oriented
+              Prog.</span>
+            <span
+              class="px-3 py-2 rounded-lg bg-zinc-800/50 border border-zinc-700/50 text-sm font-medium text-zinc-300">DBMS
+              Operations</span>
+          </div>
+        </div>
+
+        <!-- 5. DevOps & Tools -->
+        <div class="premium-card relative group p-8 flex flex-col lg:col-span-2" data-aos="fade-up"
+          data-aos-delay="400">
+          <div
+            class="absolute top-6 right-6 w-2 h-2 rounded-full bg-zinc-800 transition-all duration-500 group-hover:bg-primary group-hover:shadow-[0_0_12px_rgba(56,189,248,0.8)]">
+          </div>
+          <div class="mb-6 flex items-center justify-between border-b border-zinc-800 pb-4">
+            <h3 class="text-xl font-bold text-zinc-100 items-center flex gap-3"><i
+                class='bx bx-wrench text-2xl text-zinc-400'></i> Workflow & Tooling</h3>
+          </div>
+          <div class="flex flex-wrap gap-6 pt-2 items-center">
+            <div class="flex items-center gap-2 group/icon cursor-pointer">
+              <i class='bx bxl-github text-3xl text-zinc-500 group-hover/icon:text-white transition-colors'></i>
+              <span class="font-medium text-zinc-300">Git / GitHub</span>
+            </div>
+            <div class="flex items-center gap-2 group/icon cursor-pointer">
+              <i
+                class='bx bxl-visual-studio text-3xl text-blue-500 group-hover/icon:text-blue-400 transition-colors'></i>
+              <span class="font-medium text-zinc-300">VS Code</span>
+            </div>
+            <div class="flex items-center gap-2 group/icon cursor-pointer">
+              <i
+                class='bx bxl-docker text-3xl text-blue-400 opacity-50 group-hover/icon:opacity-100 transition-opacity'></i>
+              <span class="font-medium text-zinc-400">Docker (Learning)</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Journey / Experience Section -->
+    <section id="experience" class="scroll-mt-20">
+      <div class="mb-12" data-aos="fade-up">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">The Journey</h2>
+        <p class="text-zinc-400 text-lg">My academic milestones and continuous learning path.</p>
+      </div>
+
+      <div class="relative border-l-2 border-zinc-800/50 md:ml-4" data-aos="fade-up" data-aos-delay="100">
+        <!-- Education -->
+        <div class="pl-8 md:pl-12 relative">
+          <!-- Timeline Dot -->
+          <div
+            class="absolute w-4 h-4 bg-primary rounded-full left-[-9px] top-8 shadow-[0_0_15px_rgba(56,189,248,0.5)]">
+          </div>
+
+          <div class="premium-card p-8">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
+              <div>
+                <h3 class="text-2xl font-bold text-white tracking-tight">B.Tech Computer Engineering</h3>
+                <div class="flex items-center gap-3 text-lg text-zinc-300 font-medium mt-2">
+                  <div class="w-8 h-8 rounded border border-primary/20 bg-primary/10 flex items-center justify-center">
+                    <i class='bx bxs-institution text-primary'></i>
+                  </div>
+                  SRM Institute of Science and Technology
+                </div>
+              </div>
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800/80 border border-zinc-700/50 text-xs font-bold uppercase tracking-widest text-zinc-300 whitespace-nowrap">
+                <i class='bx bx-calendar text-primary text-sm'></i> 3rd Year (Ongoing)
+              </div>
+            </div>
+
+            <p class="text-zinc-400 leading-relaxed text-sm mt-4">
+              Currently pursuing a comprehensive Computer Engineering curriculum with a robust foundation in software
+              architecture, data structures, and algorithms. Independently expanding into advanced Artificial
+              Intelligence, developing cutting-edge models, and deploying modern, high-performance web systems.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-primary bg-primary/10 px-2 py-1 rounded border border-primary/20">Computer
+                Engineering</span>
+              <span class="text-zinc-300 bg-zinc-800/50 px-2 py-1 rounded border border-zinc-700/50">Core
+                Academics</span>
+              <span class="text-zinc-300 bg-zinc-800/50 px-2 py-1 rounded border border-zinc-700/50">Applied AI &
+                ML</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- High School -->
+        <div class="pl-8 md:pl-12 relative mt-8" data-aos="fade-up" data-aos-delay="200">
+          <!-- Timeline Dot -->
+          <div class="absolute w-4 h-4 bg-zinc-600 rounded-full left-[-9px] top-8"></div>
+
+          <div class="premium-card p-8">
+            <div class="flex flex-col md:flex-row md:justify-between md:items-start gap-4 mb-4">
+              <div>
+                <h3 class="text-2xl font-bold text-white tracking-tight">High Schooling</h3>
+                <div class="flex items-center gap-3 text-lg text-zinc-300 font-medium mt-2">
+                  <div
+                    class="w-8 h-8 rounded border border-zinc-700/50 bg-zinc-800/80 flex items-center justify-center shrink-0">
+                    <i class='bx bxs-school text-zinc-400'></i>
+                  </div>
+                  Navajeevan Bethany Vidyalaya, Nalanchira
+                </div>
+              </div>
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-zinc-800/80 border border-zinc-700/50 text-xs font-bold uppercase tracking-widest text-zinc-300 whitespace-nowrap">
+                <i class='bx bx-check-circle text-zinc-400 text-sm'></i> Completed
+              </div>
+            </div>
+
+            <p class="text-zinc-400 leading-relaxed text-sm mt-4">
+              Completed comprehensive higher secondary education with a strong focus on mathematics and the sciences,
+              laying the early quantitative groundwork for rigorous engineering studies.
+            </p>
+
+            <div class="flex flex-wrap gap-2 mt-6 pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-zinc-300 bg-zinc-800/50 px-2 py-1 rounded border border-zinc-700/50">Mathematics</span>
+              <span class="text-zinc-300 bg-zinc-800/50 px-2 py-1 rounded border border-zinc-700/50">Sciences</span>
+              <span class="text-zinc-300 bg-zinc-800/50 px-2 py-1 rounded border border-zinc-700/50">Higher
+                Secondary</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Projects Grid -->
+    <section id="projects" class="scroll-mt-20">
+      <div class="mb-12" data-aos="fade-up">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">Featured Builds</h2>
+        <p class="text-zinc-400 text-lg">Applied engineering across AI, web, and data analysis.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 relative">
+
+        <!-- Project 1 -->
+        <div class="premium-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="0">
+          <div class="p-8 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="w-12 h-12 rounded-xl bg-indigo-500/10 flex items-center justify-center text-indigo-400 text-2xl border border-indigo-500/20">
+                <i class='bx bx-network-chart'></i>
+              </div>
+              <a href="https://github.com/Girisankarsm/-Multi-Agent-Competitive-Intelligence-Engine" target="_blank"
+                class="text-zinc-500 hover:text-white transition-colors text-xl"><i class='bx bxl-github'></i></a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 tracking-tight">Multi-Agent Intelligence Engine</h3>
+            <p class="text-zinc-400 mb-6 flex-grow leading-relaxed text-sm">
+              Sophisticated platform leveraging advanced AI agents to provide deep competitive intelligence, analyzing
+              market trends, competitor moves, and strategic opportunities.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-zinc-300">fastapi</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">react</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">ai-agents</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 2 -->
+        <div class="premium-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="100">
+          <div class="p-8 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="w-12 h-12 rounded-xl bg-teal-500/10 flex items-center justify-center text-teal-400 text-2xl border border-teal-500/20">
+                <i class='bx bx-world'></i>
+              </div>
+              <a href="https://github.com/Girisankarsm/quakepulse-Live_earthquake_tracker" target="_blank"
+                class="text-zinc-500 hover:text-white transition-colors text-xl"><i class='bx bxl-github'></i></a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 tracking-tight">QuakePulse Live Tracker</h3>
+            <p class="text-zinc-400 mb-6 flex-grow leading-relaxed text-sm">
+              Real-time global earthquake monitoring dashboard visualizing live seismic data from the USGS using
+              interactive Folium geospatial maps and advanced Plotly data analytics.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-zinc-300">streamlit</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">folium</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">plotly</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 3 -->
+        <div class="premium-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="0">
+          <div class="p-8 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="w-12 h-12 rounded-xl bg-accent/10 flex items-center justify-center text-accent text-2xl border border-accent/20">
+                <i class='bx bx-brain'></i>
+              </div>
+              <a href="https://github.com/Girisankarsm/AI-Resume-Analyzer-Job-Matcher" target="_blank"
+                class="text-zinc-500 hover:text-white transition-colors text-xl"><i class='bx bxl-github'></i></a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 tracking-tight">AI Resume Matcher</h3>
+            <p class="text-zinc-400 mb-6 flex-grow leading-relaxed text-sm">
+              Streamlit intelligence platform leveraging advanced NLP processing to parse, analyze, and mathematically
+              calculate compatibility between candidate resumes and job descriptions.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-zinc-300">nlp</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">streamlit</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">machine-learning</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 4 -->
+        <div class="premium-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="100">
+          <div class="p-8 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center text-emerald-400 text-2xl border border-emerald-500/20">
+                <i class='bx bx-radar'></i>
+              </div>
+              <a href="https://github.com/Girisankarsm/Sonar-Rock-Mine-Classification" target="_blank"
+                class="text-zinc-500 hover:text-white transition-colors text-xl"><i class='bx bxl-github'></i></a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 tracking-tight">Sonar Target Classification</h3>
+            <p class="text-zinc-400 mb-6 flex-grow leading-relaxed text-sm">
+              Precision classification model processing a UCI dataset for acoustic target recognition (Rock vs. Mine)
+              utilizing dimensionality reduction (PCA) and GridSearchCV.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-zinc-300">scikit-learn</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">pca</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 5 -->
+        <div class="premium-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="0">
+          <div class="p-8 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="w-12 h-12 rounded-xl bg-orange-500/10 flex items-center justify-center text-orange-400 text-2xl border border-orange-500/20">
+                <i class='bx bx-cloud-light-rain'></i>
+              </div>
+              <a href="https://github.com/Girisankarsm/wheather_dashboard" target="_blank"
+                class="text-zinc-500 hover:text-white transition-colors text-xl"><i class='bx bxl-github'></i></a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 tracking-tight">Weather Dashboard API</h3>
+            <p class="text-zinc-400 mb-6 flex-grow leading-relaxed text-sm">
+              Modern frontend dashboard fetching live global atmospheric metrics via REST APIs, featuring custom dynamic
+              graph generation with Chart.js.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-zinc-300">tailwind</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">chart.js</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">rest-api</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project 6 -->
+        <div class="premium-card flex flex-col h-full group" data-aos="fade-up" data-aos-delay="100">
+          <div class="p-8 flex flex-col h-full">
+            <div class="flex justify-between items-start mb-6">
+              <div
+                class="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary text-2xl border border-primary/20">
+                <i class='bx bx-mouse-alt'></i>
+              </div>
+              <a href="https://github.com/Girisankarsm/-Virtual-Mouse-Control-Hands-Free-System-" target="_blank"
+                class="text-zinc-500 hover:text-white transition-colors text-xl"><i class='bx bxl-github'></i></a>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 tracking-tight">Virtual Mouse Control</h3>
+            <p class="text-zinc-400 mb-6 flex-grow leading-relaxed text-sm">
+              AI-powered Python application mapping real-time hand gesture tracking directly to the OS cursor using
+              MediaPipe & OpenCV for a hands-free desktop experience.
+            </p>
+            <div class="flex flex-wrap gap-2 mt-auto pt-4 border-t border-zinc-800/50 code-badge">
+              <span class="text-zinc-300">python</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">opencv</span>
+              <span class="text-zinc-500">•</span>
+              <span class="text-zinc-300">mediapipe</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Hobbies Section -->
+    <section class="scroll-mt-20 pt-8 pb-4">
+      <div class="mb-12" data-aos="fade-up">
+        <h2 class="text-3xl md:text-5xl font-bold tracking-tight mb-4">When I'm Not Shipping Code</h2>
+        <p class="text-zinc-400 text-lg">Even engineers have a life. Allegedly.</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- Hobby 1 -->
+        <div class="h-64 group cursor-pointer [perspective:1000px]" data-aos="fade-up" data-aos-delay="0">
+          <div
+            class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+            <!-- Front -->
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] premium-card flex flex-col items-center justify-center p-6 text-center border-white/5 bg-white/5 hover:bg-white/10 transition-colors">
+              <i class='bx bx-book-open text-5xl text-accent mb-4'></i>
+              <h3 class="text-2xl font-bold text-white tracking-tight">Reading</h3>
+            </div>
+            <!-- Back -->
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] premium-card flex flex-col items-center justify-center p-8 text-center border-accent/30 bg-accent/10">
+              <p class="text-zinc-300 font-medium leading-relaxed text-lg">
+                Mostly tech, philosophy, and the occasional rabbit hole at 2am.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hobby 2 -->
+        <div class="h-64 group cursor-pointer [perspective:1000px]" data-aos="fade-up" data-aos-delay="100">
+          <div
+            class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+            <!-- Front -->
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] premium-card flex flex-col items-center justify-center p-6 text-center border-white/5 bg-white/5 hover:bg-white/10 transition-colors">
+              <i class='bx bx-football text-5xl text-emerald-500 mb-4'></i>
+              <h3 class="text-2xl font-bold text-white tracking-tight">Football</h3>
+            </div>
+            <!-- Back -->
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] premium-card flex flex-col items-center justify-center p-8 text-center border-emerald-500/30 bg-emerald-500/10">
+              <p class="text-zinc-300 font-medium leading-relaxed text-lg">
+                Midfield vision on the pitch, same energy in system design.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hobby 3 -->
+        <div class="h-64 group cursor-pointer [perspective:1000px]" data-aos="fade-up" data-aos-delay="200">
+          <div
+            class="relative w-full h-full transition-transform duration-500 [transform-style:preserve-3d] group-hover:[transform:rotateY(180deg)]">
+            <!-- Front -->
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] premium-card flex flex-col items-center justify-center p-6 text-center border-white/5 bg-white/5 hover:bg-white/10 transition-colors">
+              <i class='bx bx-headphone text-5xl text-primary mb-4'></i>
+              <h3 class="text-2xl font-bold text-white tracking-tight">Music</h3>
+            </div>
+            <!-- Back -->
+            <div
+              class="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] premium-card flex flex-col items-center justify-center p-8 text-center border-primary/30 bg-primary/10">
+              <p class="text-zinc-300 font-medium leading-relaxed text-lg">
+                Lo-fi when coding, something loud when debugging.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Block -->
+    <section id="contact" class="pt-4 scroll-mt-20">
+      <div class="premium-card py-10 px-6 md:py-12 md:px-12 text-center relative overflow-hidden" data-aos="zoom-in">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight text-white">Let's build something <span
+            class="text-primary italic">exceptional.</span></h2>
+        <p class="text-zinc-400 mb-8 max-w-xl mx-auto font-medium leading-relaxed text-sm md:text-base">
+          Currently open to new opportunities, internships, and collaborative projects. My inbox is always open whether
+          you have a project mapped out, or just want to discuss software engineering.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a href="mailto:gxr02005@gmail.com"
+            class="inline-flex items-center justify-center w-full sm:w-auto gap-3 bg-white text-dark hover:bg-zinc-200 px-6 py-3 rounded-full font-bold text-sm tracking-wide transition-transform hover:scale-105">
+            Send an Email <i class='bx bx-right-arrow-alt text-xl'></i>
+          </a>
+          <a href="https://www.linkedin.com/in/girisankar-s-m/" target="_blank"
+            class="inline-flex items-center justify-center w-full sm:w-auto gap-2 px-6 py-3 rounded-full border border-zinc-700 bg-zinc-800/80 font-bold text-sm tracking-wide hover:border-blue-500 hover:bg-blue-500/10 transition-all text-white hover:scale-105">
+            <i class='bx bxl-linkedin text-xl text-blue-400'></i> Connect on LinkedIn
+          </a>
+        </div>
+        <p class="mt-6 text-xs text-zinc-500 font-medium flex items-center justify-center gap-1.5">
+          <i class='bx bx-time text-sm'></i> I typically respond within 24 hours.
+        </p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-zinc-800/50 py-12 mt-20 relative z-10 w-full text-zinc-500 flex flex-col gap-8">
+    <div class="max-w-6xl mx-auto px-6 flex flex-col md:flex-row justify-between items-center gap-6 w-full">
+      <div class="text-center md:text-left">
+        <h3 class="text-lg font-bold text-zinc-300 mb-1 tracking-tight">Girisankar.S.M.</h3>
+        <p class="text-xs font-mono uppercase tracking-widest">B.Tech Computer Engineering</p>
+      </div>
+      <div class="flex gap-4">
+        <a href="https://www.linkedin.com/in/girisankar-s-m/" target="_blank"
+          class="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center hover:text-white hover:border-zinc-500 transition-colors bg-dark"><i
+            class='bx bxl-linkedin text-xl'></i></a>
+        <a href="https://github.com/Girisankarsm" target="_blank"
+          class="w-10 h-10 rounded-full border border-zinc-800 flex items-center justify-center hover:text-white hover:border-zinc-500 transition-colors bg-dark"><i
+            class='bx bxl-github text-xl'></i></a>
+      </div>
+    </div>
+
+    <div class="text-center text-xs text-zinc-600 font-medium">
+      &copy; 2026 Girisankar.S.M.
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+
+  <script>
+    // Initialize Scroll Animations
+    AOS.init({
+      once: true, // Only animate once
+      mirror: false,
+      duration: 600,
+      offset: 50,
+      easing: 'ease-out-cubic'
+    });
+
+    // Premium minimal tsParticles config
+    tsParticles.load("tsparticles", {
+      background: { color: { value: "transparent" } },
+      fpsLimit: 120,
+      interactivity: {
+        events: {
+          onHover: { enable: true, mode: "grab" }, /* Clean grabbing lines effect */
+          resize: true
+        },
+        modes: {
+          grab: { distance: 160, links: { opacity: 0.15 } }
+        }
+      },
+      particles: {
+        color: { value: "#ffffff" },
+        links: {
+          color: "#ffffff",
+          distance: 140,
+          enable: true,
+          opacity: 0.04, /* Extremely faint, elegant lines */
+          width: 1
+        },
+        move: {
+          direction: "none",
+          enable: true,
+          outModes: { default: "bounce" },
+          random: true,
+          speed: 0.3, /* Slower, majestic movement */
+          straight: false
+        },
+        number: {
+          density: { enable: true, area: 800 },
+          value: 40 /* Lower density for cleaner look */
+        },
+        opacity: { value: 0.1 }, /* Dim dots */
+        shape: { type: "circle" },
+        size: { value: { min: 1, max: 2 } }
+      },
+      detectRetina: true
+    });
+  </script>
+</body>
+
+</html>
